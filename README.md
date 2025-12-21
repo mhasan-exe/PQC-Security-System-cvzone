@@ -44,11 +44,45 @@ install python 3.11.x and then use pip to install requirements.txt file by
 
 1. **Create & activate virtual environment**
 ```bash
-python -m venv stem-env
-stem-env\Scripts\activate   # Windows
+python -m venv stem-env #this one creates new enviroment
+stem-env\Scripts\activate   # Windows (this line opens virtual enviroment)
 ```
+2. **Download the face recognition model**
+   https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat
+   
+## Running
 ```python new_ui.py```
 
+after running you will see a normal ctk interface where you can:
+
+1. Open hand in front of interface to reset slides to first one
+
+2. slowly close hand to move to next slides
+
+3. open middle and index fingers to go to previous slides
+
+4. open hand gesture system to see live hand tracking + distance between your index fingers of both hands
+
+5. in the live tracking module, open only your index finger to move mouse with it
+
+6. press Ecs key to close the window
+
+7. open face module next and press r to process and verify people , it will not verify until r is pressed again which means people's name will not change unless r is pressed
+
+8. Now you can move towards Post Quantum Module to check a secure string guesser, and security level predictor!
+
+9. Caution: ALL module either have exit button or require escape to be pressed to exit, and the slides can't work after access is passed to another window and needs the program to be restarted for security issues!
+
+10. Do Let me know if you have a question or an issue in the program! 
+
+11. That's all , happy coding! 
+
+### Troubleshooting
+1. Visual studio desktop cmake tool (not vs code) is required to make wheels for dlib face recognition model
+2. make sure to download the shape predictor file from the link above
+3. numpy newer version can't process dlib face recognition model properly so only use from the requirements.txt file!
+4. if you open any module, the camera can't work for slides so that program don't crash hence needs a restart!
+5. opencv course is also available on opencv-university website to learn what is happening here, I will share my certificate here as well!
 That's all but to support me , just hear out my story😊
 ----------------------------
 🎯 Project Motivation & Story
@@ -67,14 +101,19 @@ Not every effort receives immediate validation —
 but every real build compounds.
 -- and in the end, this project broke me because pushing this into a small competition and refining it for months just turned into
 a celebration without me , a celebration where I was the audience and thats when I have decided to make it open-source for everyone😊
+
 👤 Author
 
 Hasan
+
 Python Developer | Computer Vision Enthusiast
 
 📸 Instagram: @mhasan.exe
+
 📱 WhatsApp: 03358207180
+
 📥E-mail: muhammadhasanm44@gmail
+
 📌 Disclaimer
 This project is for educational and demonstration purposes only.
 It is not intended for real-world security deployment without further testing and hardening.
