@@ -1,0 +1,7 @@
+numpy==1.26.4
+opencv-python==4.9.0.80
+mediapipe==0.10.11
+dlib==19.24.2
+customtkinter==5.2.2
+pyautogui
+pillow
