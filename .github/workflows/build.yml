@@ -1,5 +1,6 @@
 name: Build Windows EXE
 on: [push]
+
 jobs:
   build:
     runs-on: windows-2022
@@ -10,15 +11,24 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
+          cache: 'pip' # Built-in caching for pip dependencies
+
+      - name: Cache Face Predictor Model
+        id: cache-model
+        uses: actions/cache@v4
+        with:
+          path: shape_predictor_68_face_landmarks.dat
+          key: ${{ runner.os }}-face-model-v1
+
+      - name: Download Face Predictor (if not cached)
+        if: steps.cache-model.outputs.cache-hit != 'true'
+        run: curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
+
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller darkdetect
-
-      - name: Download Face Predictor Model
-        run: curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
 
       - name: Build with Fixed Paths
         run: |
