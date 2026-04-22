@@ -11,9 +11,6 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install C++ Build Tools
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-          
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
@@ -23,13 +20,11 @@ jobs:
       - name: Download Face Predictor Model
         run: curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
 
-      - name: The Nuclear Build
+      - name: Build with Fixed Paths
         run: |
-          $ctk_path = python -c "import customtkinter; import os; print(os.path.dirname(customtkinter.__file__))"
-          echo "CustomTkinter path is: $ctk_path"
           pyinstaller --onefile --noconsole `
           --collect-all mediapipe `
-          --add-data "$($ctk_path);customtkinter/" `
+          --collect-all customtkinter `
           --add-data "shape_predictor_68_face_landmarks.dat;." `
           --hidden-import=darkdetect `
           new_ui.py
