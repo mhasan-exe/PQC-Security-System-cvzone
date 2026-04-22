@@ -5,6 +5,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+      
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -19,6 +20,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
+
+      - name: Download Face Predictor Model
+        run: |
+          curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
 
       - name: Build Executable
         run: |
