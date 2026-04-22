@@ -11,26 +11,31 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install C++ Build Tools (for dlib)
+      - name: Install C++ Build Tools (Essential for dlib)
         run: |
           choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
           
-      - name: Install Dependencies
+      - name: Install All Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pyinstaller
+          pip install pyinstaller darkdetect  # darkdetect is often missed by customtkinter
 
-      - name: Download Face Predictor Model
+      - name: Download Face Predictor Model (100MB)
         run: |
           curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
 
-       - name: Build Executable
-          run: |
-          pyinstaller --onefile --noconsole --collect-all mediapipe --collect-all customtkinter --add-data "shape_predictor_68_face_landmarks.dat;." new_ui.py
-     
-      - name: Upload EXE
+      - name: The "500 IQ" Compilation
+        run: |
+          pyinstaller --onefile --noconsole `
+          --collect-all mediapipe `
+          --collect-all customtkinter `
+          --hidden-import=darkdetect `
+          --add-data "shape_predictor_68_face_landmarks.dat;." `
+          new_ui.py
+
+      - name: Upload Finished EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Gesture-Security-System
+          name: Gesture-Security-System-Final
           path: dist/*.exe
