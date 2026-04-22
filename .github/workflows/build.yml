@@ -25,8 +25,8 @@ jobs:
         run: |
           curl -L -o shape_predictor_68_face_landmarks.dat https://github.com/italojs/facetracker/raw/master/data/shape_predictor_68_face_landmarks.dat
 
-     - name: Build Executable
-        run: |
+       - name: Build Executable
+          run: |
           pyinstaller --onefile --noconsole --collect-all mediapipe --collect-all customtkinter --add-data "shape_predictor_68_face_landmarks.dat;." new_ui.py
      
       - name: Upload EXE
